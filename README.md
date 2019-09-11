@@ -1,0 +1,2 @@
+# oidc-discovery
+OpenId Discovery
