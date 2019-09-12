@@ -15,6 +15,11 @@ class Discovery
         $this->_start($discoveryurl,$useservice);
 
     }
+
+    public function __debugInfo(){
+        return $this->_start;
+    }
+
     public function  __get($name) {
         // check if the named key exists in our array
         if(array_key_exists($name, $this->result)) {
