@@ -6,24 +6,28 @@ use GuzzleHttp\Exception\RequestException;
 
 class Discovery
 {
-    function __construct($discoveryurl)
+    function __construct($discoveryurl,$useservice=false)
     {
-        $this->_start($discoveryurl);
+        $this->_start($discoveryurl,$useservice);
 
     }
 
-    function _start(String $discoveryurl){
+    function _start(String $discoveryurl,$useservice){
 
+        $class = __NAMESPACE__.'\\Services\\'.str_replace('-','', str_replace('.','', basename($discoveryurl) ) );
 
-        $class = 'WellKnown\\Services\\'.str_replace('-','', str_replace('.','', basename($discoveryurl) ) );
-
+        if($useservice!=false){
+            $class = __NAMESPACE__.'\\Services\\'.str_replace('-','', str_replace('.','', basename($useservice) ) );
+        }
+        echo "Start!\n";
+        echo $class."\n";
         if( !class_exists( $class ) ){
             throw new \Exception("Unsupported service discovery endpoint");
         }
 
         $res = new $class($discoveryurl);
         $this->result = $res->get();
-
+        echo "end!\n";
         /*
             // http://openid.net/specs/openid-connect-discovery-1_0.html
             // http://www.iana.org/go/rfc8414
