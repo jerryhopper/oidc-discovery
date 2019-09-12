@@ -1,6 +1,7 @@
 # service-discovery-php
 
-service discovery helper.
+ /.well-known Service discovery helper.
+
 
 
 <pre>
