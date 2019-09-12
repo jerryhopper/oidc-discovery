@@ -1,2 +1,3 @@
-# oidc-discovery
-OpenId Discovery
+# service-discovery-php
+
+service discovery helper.
