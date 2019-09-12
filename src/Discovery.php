@@ -17,7 +17,7 @@ class Discovery
     }
 
     public function __debugInfo(){
-        return $this->_start;
+        return $this->result;
     }
 
     public function  __get($name) {
@@ -40,7 +40,7 @@ class Discovery
         }
 
         $res = new $class($discoveryurl);
-        $this->result = $res->get();
+        $this->result = (array)$res->get();
 
         /*
             // http://openid.net/specs/openid-connect-discovery-1_0.html

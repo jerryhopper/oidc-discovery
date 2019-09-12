@@ -13,7 +13,7 @@ class openidconfiguration extends DiscoveryService
         $array = json_decode($string,true);
         if(array_key_exists('jwks_uri',$array)){
             $discovery = new Discovery($array['jwks_uri'],'jwks.json');
-            $array['jwks_uri'] = $discovery->result;
+            $array['jwks_uri'] = $discovery->get();
         }
         return $array;
     }
