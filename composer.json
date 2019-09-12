@@ -13,7 +13,7 @@
     ],
     "homepage": "https://github.com/jerryhopper/service-discovery-php",
     "autoload": {
-        "psr-0": { "WellKnown": "src/" }
+        "psr-4": { "JerryHopper\\ServiceDiscovery\\": "src/" }
     },
     "require": {
         "guzzlehttp/guzzle": "^6.3"
