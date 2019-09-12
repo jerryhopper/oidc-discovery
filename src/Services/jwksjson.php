@@ -10,6 +10,6 @@ class jwksjson extends DiscoveryService
 
     function parseToArray($string){
 
-        return json_decode($string,false);
+        return json_decode($string,true);
     }
 }
