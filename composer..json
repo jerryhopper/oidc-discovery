@@ -1,0 +1,21 @@
+{
+    "name": "jerryhopper/service-discovery-php",
+    "description":".well-known discovery helper",
+    "keywords":["openid","oauth2","auth","servicediscovery","service discovery"],
+    "type":"library",
+    "license":"MIT",
+    "authors":[
+        {
+            "name":"Jerry Hopper",
+            "email": "hopper.jerry@gmail.com",
+            "homepage":"https://jerryhopper.com"
+        }
+    ],
+    "homepage": "https://github.com/jerryhopper/service-discovery-php",
+    "autoload": {
+        "psr-0": { "WellKnown": "src/" }
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    }
+}
