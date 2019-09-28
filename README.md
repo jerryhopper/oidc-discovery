@@ -1,4 +1,9 @@
+[![Build Status](https://travis-ci.org/jerryhopper/service-discovery-php.svg?branch=master)](https://travis-ci.org/jerryhopper/service-discovery-php)
+
 # service-discovery-php
+
+
+
 
  /.well-known Service discovery helper.
 
