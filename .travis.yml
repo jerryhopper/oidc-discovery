@@ -5,14 +5,5 @@ php:
   - '7.3'
 install:
   - composer install
-  - curl -o exakat.phar http://dist.exakat.io/index.php?file=latest
-  - curl -o apache-tinkerpop-gremlin-server-3.4.3-bin.zip http://dist.exakat.io/apache-tinkerpop-gremlin-server-3.4.3-bin.zip
-  - unzip apache-tinkerpop-gremlin-server-3.4.3-bin.zip
-  - mv apache-tinkerpop-gremlin-server-3.4.3 tinkergraph
-  - rm -rf apache-tinkerpop-gremlin-server-3.4.3-bin.zip
-  - php exakat.phar version
-  - php exakat.phar doctor
-
 script:
   - vendor/bin/phpunit --bootstrap vendor/autoload.php tests/DiscoveryTest
-  - php exakat.phar project
