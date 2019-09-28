@@ -5,4 +5,4 @@ php:
   - '7.2'
   - '7.3'
 install: composer install
-script: phpunit --bootstrap vendor/autoload.php tests/DiscoveryTest
+script: vendor/bin/phpunit --bootstrap vendor/autoload.php tests/DiscoveryTest
