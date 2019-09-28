@@ -22,6 +22,7 @@ final class DiscoveryTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         new Discovery('https://accounts.google.com/.well-known/errorneous-openid-configuration');
+        return void;
     }
 
     public function testIssuerIsEqual(): void
@@ -32,6 +33,7 @@ final class DiscoveryTest extends TestCase
             'https://accounts.google.com',
             $result->issuer
         );
+        return void;
     }
 
 }
