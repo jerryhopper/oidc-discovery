@@ -15,4 +15,4 @@ install:
 
 script:
   - vendor/bin/phpunit --bootstrap vendor/autoload.php tests/DiscoveryTest
-  - php exakat.phar project -p sculpin
+  - php exakat.phar project -p name
