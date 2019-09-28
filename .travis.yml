@@ -10,6 +10,7 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script:
+  - vendor/bin/codecept bootstrap
   - vendor/bin/codecept run unit --coverage --coverage-xml
   - vendor/bin/phpunit --bootstrap vendor/autoload.php tests/DiscoveryTest
 after_script:
