@@ -12,4 +12,8 @@ class jwksjson extends DiscoveryService
 
         return json_decode($string,true);
     }
+
+    function test($array){ 
+    }
+
 }

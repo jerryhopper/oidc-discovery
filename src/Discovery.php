@@ -5,7 +5,8 @@ namespace JerryHopper\ServiceDiscovery;
 
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
-
+use InvalidArgumentException;
+use Exception;
 
 class Discovery
 {
@@ -36,7 +37,7 @@ class Discovery
             $class = __NAMESPACE__.'\\Services\\'.str_replace('-','', str_replace('.','', basename($useservice) ) );
         }
         if( !class_exists( $class ) ){
-            throw new \Exception("Unsupported service discovery endpoint");
+            throw new InvalidArgumentException("Unsupported service discovery endpoint");
         }
 
         $res = new $class($discoveryurl);

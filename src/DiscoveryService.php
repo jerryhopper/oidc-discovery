@@ -1,13 +1,16 @@
 <?php
 namespace JerryHopper\ServiceDiscovery;
 
+use Exception;
+use GuzzleHttp;
+
 class DiscoveryService {
 
     function __construct($discoveryurl)
     {
         $data = $this->getUrl($discoveryurl);
         $this->result = $this->parseToArray($data) ;
-
+        $this->test($this->result);
     }
     public function get(){
         return $this->result;
@@ -18,25 +21,31 @@ class DiscoveryService {
     }
 
     private function getUrl($discoveryurl){
-        $client = new \GuzzleHttp\Client(['http_errors' => false]);
+        $client = new GuzzleHttp\Client(['http_errors' => false]);
         try {
             $res = $client->get($discoveryurl, []);
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage(),$e->getCode());
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(),$e->getCode());
         }
         if ($res->getStatusCode()==404){
-            throw new \Exception('not found',404);
+            throw new Exception('not found',404);
         }
         if ($res->getStatusCode()!=200){
-            throw new \Exception('unknown error',500);
+            throw new Exception('unknown error',500);
         }
         //->getBody()->getContents();
         //echo $this->getContentType($res->getHeader('content-type')[0]);
         if( $this->contentType != $this->getContentType($res->getHeader('content-type')[0])){
-            throw new \Exception("Incorrect content type!");
+            throw new Exception("Incorrect content type!");
         }
         //echo $res->getBody();
         return $res->getBody()->getContents();
+    }
+    public function urlIsHttps($url){
+        if ( strpos(strtolower($url),'https://')==0){
+            return true;
+        }
+        return false;
     }
 
 }
