@@ -16,10 +16,10 @@
         "psr-4": { "JerryHopper\\ServiceDiscovery\\": "src/" }
     },
     "require": {
-        "php": "^5.6|^7.0|^8.0",
+        "php": "^5.6|^7.0",
         "guzzlehttp/guzzle": "^6.3"
     },
     "require-dev": {
-        "phpunit/phpunit": "^7|^6|^5"
+        "phpunit/phpunit": "^6|^5"
     }
 }
