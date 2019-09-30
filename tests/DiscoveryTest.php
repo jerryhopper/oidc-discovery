@@ -26,7 +26,7 @@ final class DiscoveryTest extends TestCase
         $result = new Discovery('https://accounts.google.com/.well-known/openid-configuration');
         $this->assertEquals(
             'https://accounts.google.com',
-            $result->get()['issuer']
+            $result->issuer
         );
 
 

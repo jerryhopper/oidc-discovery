@@ -101,7 +101,7 @@ class Discovery
 
 
 
-    public function get($key==false){
+    public function get($key=false){
         if ($key==false){
             return $this->result;
         }
