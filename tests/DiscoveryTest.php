@@ -11,13 +11,13 @@ final class DiscoveryTest extends TestCase
     {
         $this->assertInstanceOf(
             Discovery::class,
-            new Discovery('https://fusionauth.devpoc.nl/.well-known/openid-configuration/2ffcb932-4c81-cf25-2749-cfda1bfdc08f')
+            new Discovery('https://accounts.google.com/.well-known/openid-configuration')
         );
     }
     public function testCannotBeCreatedFromInvalidOpenIdDiscoveryUrl(): void
     {
         $this->expectException(Exception::class);
-        new Discovery('http://fusionauth.devpoc.nl/.well-known/openid-configuration/nonexistent');
+        new Discovery('https://accounts.google.com/.well-known/openid-configurationnonexistent');
 
     }
 
