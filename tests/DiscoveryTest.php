@@ -9,30 +9,27 @@ final class DiscoveryTest extends TestCase
 {
     public function testCanBeCreatedFromValidOpenIdDiscoveryUrl(): void
     {
-        $discover = new Discovery("https://accounts.google.com/.well-known/openid-configuration");
-
         $this->assertInstanceOf(
             Discovery::class,
-            new Discovery('https://accounts.google.com/.well-known/openid-configuration')
+            new Discovery('https://fusionauth.devpoc.nl/.well-known/openid-configuration/2ffcb932-4c81-cf25-2749-cfda1bfdc08f')
         );
     }
-
     public function testCannotBeCreatedFromInvalidOpenIdDiscoveryUrl(): void
     {
-        $this->expectException(InvalidArgumentException::class);
-
-        new Discovery('https://accounts.google.com/.well-known/errorneous-openid-configuration');
+        $this->expectException(Exception::class);
+        new Discovery('http://fusionauth.devpoc.nl/.well-known/openid-configuration/nonexistent');
 
     }
 
     public function testIssuerIsEqual(): void
     {
         $result = new Discovery('https://accounts.google.com/.well-known/openid-configuration');
-
         $this->assertEquals(
             'https://accounts.google.com',
-            $result->issuer
+            $result->get()['issuer']
         );
+
+
     }
 
 }
