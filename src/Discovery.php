@@ -28,7 +28,7 @@ class Discovery
         return $this;
     }
 
-    public function  _get($name) {
+    public function  __get($name) {
         // check if the named key exists in our array
         if(array_key_exists($name, $this->result)) {
             // then return the value from the array
@@ -101,8 +101,11 @@ class Discovery
 
 
 
-    public function get(){
-        return $this->result;
+    public function get($key==false){
+        if ($key==false){
+            return $this->result;
+        }
+        return $this->__get($key);
     }
 
 
