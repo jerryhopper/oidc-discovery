@@ -16,13 +16,47 @@ class Discovery
 
     function __construct($discoveryurl)
     {
+        $this->tmpFile = sys_get_temp_dir().DIRECTORY_SEPARATOR.".well-known-".md5($discoveryurl);
+
+        $cacheExists = file_exists($this->tmpFile);
+
+
+        if( $cacheExists && (time()-3600)>filemtime($this->tmpFile) ){
+            $cacheIsInvalid=true;
+        }else{
+            $cacheIsInvalid=false;
+        }
+
+        // Check if url is https://
         $this->urlIsHttps($discoveryurl);
 
-        $this->result = $this->test($this->start($discoveryurl)) ;
-//
-        //# todo jwks check.
+
+        if( $cacheExists && $cacheIsInvalid){
+            $this->result = $this->readCache();
+        }else{
+            $data = $this->test($this->start($discoveryurl));
+            $this->writecache($data);
+            $this->result = $data;
+        }
 
     }
+
+
+    function readCache(){
+        $filename = $this->tmpFile;
+        $handle = fopen($filename, "r");
+        $contents = fread($handle, filesize($filename));
+        fclose($handle);
+        return json_decode($contents,true);
+    }
+    function writeCache($data){
+        $filename = $this->tmpFile;
+        $handle = fopen($filename, "w");
+        fwrite($handle,json_encode($data));
+        fclose($handle);
+    }
+
+
 
     public function xx_debugInfo(){
         return $this;
