@@ -8,6 +8,12 @@ use GuzzleHttp\Exception\RequestException;
 use InvalidArgumentException;
 use Exception;
 use GuzzleHttp;
+use GuzzleHttp\HandlerStack;
+use Kevinrob\GuzzleCache\CacheMiddleware;
+use Kevinrob\GuzzleCache\Storage\Psr6CacheStorage;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+
+
 
 class Discovery
 {
@@ -31,13 +37,10 @@ class Discovery
         $this->urlIsHttps($discoveryurl);
 
 
-        if( $cacheExists && $cacheIsInvalid){
-            $this->result = $this->readCache();
-        }else{
-            $data = $this->test($this->start($discoveryurl));
-            $this->writecache($data);
-            $this->result = $data;
-        }
+
+        $data = $this->test($this->start($discoveryurl));
+        $this->result = $data;
+
 
     }
 
@@ -152,7 +155,31 @@ class Discovery
 
 
     private function getUrl($discoveryurl){
-        $client = new GuzzleHttp\Client(['http_errors' => false]);
+
+        $stack = HandlerStack::create();
+        // Choose a cache strategy: the PrivateCacheStrategy is good to start with
+        $cache_strategy_class = '\\Kevinrob\\GuzzleCache\\Strategy\\PrivateCacheStrategy';
+
+        // Instantiate the cache storage: a PSR-6 file system cache with
+        // a default lifetime of 1 minute (60 seconds).
+                $cache_storage =
+                    new Psr6CacheStorage( new FilesystemAdapter('', 0, sys_get_temp_dir() ) , 60
+                );
+
+        // Add cache middleware to the top of the stack with `push`
+        $stack->push(
+            new CacheMiddleware(
+                new $cache_strategy_class (
+                    $cache_storage
+                )
+            ),
+            'cache'
+        );
+
+        $client = new GuzzleHttp\Client(['handler' => $stack,'http_errors' => false]);
+
+
+
         try {
             $res = $client->get($discoveryurl, []);
         } catch (Exception $e) {
