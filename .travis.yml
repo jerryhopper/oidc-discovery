@@ -3,6 +3,11 @@ php:
   - '7.1'
   - '7.2'
   - '7.3'
+  - '7.4'
+services:
+  - docker  
+before_install:
+- docker pull fusionauth/fusionauth-app
 install:
   - composer install
 script:
